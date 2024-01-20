@@ -10,7 +10,7 @@ export default async function Home() {
 
   return (
     <main className="">
-      <h1 className="text-2xl"> Welcome to Image Editor App </h1>
+      <h1 className="text-2xl"> Welcome to Image Editor </h1>
     </main>
   );
 }
