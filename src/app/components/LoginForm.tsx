@@ -1,8 +1,8 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { loginAction } from "./action/loginAction"
-
+import { TbInfoTriangle } from "react-icons/tb";
 
 function LoginForm() {
   const {
@@ -11,11 +11,20 @@ function LoginForm() {
     reset,
     formState: { errors },
   } = useForm();
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const onSubmit = async (data: object) => {
-    // console.log("Data : ", data);
-    await loginAction(data);
+    try {
+      const res = await loginAction(data);
+      setErrorMessage(res?.error || null); // Set to null if undefined
+      console.log("response : ", res);
+    } catch (error) {
+      console.error("An error occurred during login:", error);
+      // Handle other error scenarios if needed
+    }
   };
+  
+  
   return (
     <div className="max-w-[416px] w-full mx-auto    rounded-lg min-h-[450px] p-10">
       <h1 className="text-3xl mb-7 font-bold">Sign in to Image Editor</h1>
@@ -63,7 +72,9 @@ function LoginForm() {
         </span>
         <hr className="border-t border-[#e7e7e9] w-full" />
       </div>
-
+      {
+        errorMessage && <div className="text-red-600 flex justify-center items-center text-sm p-1 rounded-lg"><TbInfoTriangle className="mr-1"/>{errorMessage}</div>
+      }
       <form onSubmit={handleSubmit(onSubmit)}>
         <fieldset className="flex flex-col gap-3 w-full mb-3">
           <label className="text-[#0d0c22] font-semibold">Username</label>
@@ -102,6 +113,7 @@ function LoginForm() {
           </a>
         </div>
       </form>
+     
     </div>
   );
 }
