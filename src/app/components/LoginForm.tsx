@@ -86,6 +86,7 @@ function LoginForm() {
           {errors.username?.type == "required" && (
             <p className="text-sm text-red-600">Username Required</p>
           )}
+          user
         </fieldset>
         <fieldset className="flex flex-col gap-3 w-full mb-5">
           <label className="text-[#0d0c22] font-semibold">Password</label>
@@ -97,6 +98,7 @@ function LoginForm() {
           {errors.password?.type == "required" && (
             <p className="text-sm text-red-600">Password Required</p>
           )}
+          123
         </fieldset>
         <fieldset>
           <button
